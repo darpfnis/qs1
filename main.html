@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Елементи UI</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cbc;
+            --accent-color: #305985;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --light-gray: #e9ecef;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --disabled-color: #6c757d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+
+        .card-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .example {
+            background-color: var(--light-gray);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+
+        /* Стилі для демонстрації UI елементів */
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+        }
+
+        input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        /* Оновлені стилі для вкладок */
+        .tabs-container {
+            margin: 15px 0;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: -1px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            cursor: pointer;
+            border-radius: 4px 4px 0 0;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: white;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 0 0 4px 4px;
+            background-color: white;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Оновлені стилі для кнопок */
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background-color: var(--disabled-color);
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+        }
+        
+        .btn:disabled:hover {
+            background-color: var(--disabled-color);
+            transform: none;
+        }
+
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Стилі для фотографії */
+        .photo-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .photo {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: none;
+        }
+        
+        .photo.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Елементи користувацького інтерфейсу</h1>
+        <p>Огляд та приклади основних UI компонентів</p>
+    </header>
+
+    <div class="container">
+        <!-- Радіокнопка -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">1</div>
+                <h2>Радіокнопка (Radiobutton)</h2>
+            </div>
+            <div class="description">
+                <p>Радіокнопка дозволяє користувачеві вибрати лише один варіант з кількох взаємовиключних опцій. Всі радіокнопки в групі пов'язані між собою - вибір однієї автоматично скасовує вибір інших.</p>
+            </div>
+            <div class="example">
+                <p>Оберіть пілота Макларен:</p>
+                <div class="radio-group">
+                    <input type="radio" id="pia" name="driver" value="pia">
+                    <label for="pia">Оскар Піастрі</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="lando" name="driver" value="lando">
+                    <label for="lando">Ландо Норріс</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Прапорець -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">2</div>
+                <h2>Прапорець (Checkbox)</h2>
+            </div>
+            <div class="description">
+                <p>Прапорець дозволяє користувачеві вибирати одну або кілька опцій з набору. На відміну від радіокнопок, прапорці не є взаємовиключними - можна вибрати кілька варіантів одночасно.</p>
+            </div>
+            <div class="example">
+                <p>Команди, за які ви вболіваєте:</p>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="redbull" name="team" value="redbull">
+                    <label for="redbull">РедБулл</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="mercedes" name="team" value="mercedes">
+                    <label for="mercedes">Мерседес</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="mclaren" name="team" value="mclaren">
+                    <label for="mclaren">Макларен</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Текстове поле -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">3</div>
+                <h2>Текстове поле (Text input)</h2>
+            </div>
+            <div class="description">
+                <p>Текстове поле дозволяє користувачеві вводити текст або числові дані. Це один з найпоширеніших елементів форми, який використовується для збору різноманітної інформації.</p>
+            </div>
+            <div class="example">
+                <label for="username">Заповніть інформацію для реєстрції на Гран-прі:</label>
+                <input type="text" id="username" name="username" placeholder="Впишіть ваше ім'я та прізвище">
+            </div>
+        </div>
+
+        <!-- Вкладки -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">4</div>
+                <h2>Вкладки (Tabs)</h2>
+            </div>
+            <div class="description">
+                <p>Вкладки дозволяють організувати контент у окремі панелі, перемикаючись між ними без перезавантаження сторінки. Користувач може легко перемикатися між різними розділами інформації.</p>
+            </div>
+            <div class="example">
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <div class="tab active" data-tab="tab1">Профіль</div>
+                        <div class="tab" data-tab="tab2">Повідомлення</div>
+                        <div class="tab" data-tab="tab3">Налаштування</div>
+                    </div>
+                    
+                    <div class="tab-content active" id="tab1">
+                        <h3>Профіль користувача</h3>
+                        <p>Тут ви можете переглянути та редагувати інформацію про ваш профіль.</p>
+                        <p>Ім'я: Макс Ферстаппен</p>
+                        <p>Команда: Red Bull Racing</p>
+                    </div>
+                    
+                    <div class="tab-content" id="tab2">
+                        <h3>Повідомлення</h3>
+                        <p>У вас 3 нових повідомлення:</p>
+                        <ul>
+                            <ol>Запрошення на Гран-прі Монако</ol>
+                            <ol>Оновлення правил Формули 1</ol>
+                            <ol>Нові анонси від Pirelli</ol>
+                        </ul>
+                    </div>
+                    
+                    <div class="tab-content" id="tab3">
+                        <h3>Налаштування</h3>
+                        <p>Тут ви можете змінити налаштування вашого облікового запису:</p>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifications" name="notifications" checked>
+                            <label for="notifications">Email-сповіщення</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter" checked>
+                            <label for="newsletter">Отримувати новини</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">5</div>
+                <h2>Кнопка (Button)</h2>
+            </div>
+            <div class="description">
+                <p>Кнопка - це інтерактивний елемент, який ініціює дію при натисканні. Вона може відправляти форми, запускати процеси, відкривати діалогові вікна або виконувати інші дії.</p>
+                <p>Активні кнопки мають яскравий колір та реагують на наведення, тоді як неактивні - сірі та не реагують на кліки.</p>
+            </div>
+            <div class="example">
+                <button class="btn" id="activeBtn">Активна кнопка</button>
+                <button class="btn" disabled>Неактивна кнопка</button>
+                
+                <div class="photo-container">
+                    <img src="https://motorcar.com.ua/wp-content/uploads/2022/02/red-bull-rb18_b.jpg" alt="Formula 1 Car" class="photo" id="f1Photo">
+                    <p id="photoCaption" style="margin-top: 10px;"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Текстова мітка -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">6</div>
+                <h2>Текстова мітка (Text label)</h2>
+            </div>
+            <div class="description">
+                <p>Текстова мітка надає опис або назву для іншого елемента інтерфейсу. Вона допомагає користувачеві зрозуміти, яку інформацію слід вводити або що робить певний елемент.</p>
+            </div>
+            <div class="example">
+                <label for="email">Електронна пошта:</label>
+                <input type="text" id="email" name="email" placeholder="user@example.com">
+            </div>
+        </div>
+
+        <!-- Посилання -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">7</div>
+                <h2>Посилання (Link)</h2>
+            </div>
+            <div class="description">
+                <p>Посилання дозволяє користувачеві переходити до іншого документу, ресурсу або розділу поточної сторінки. Посилання зазвичай виділяються кольором і підкресленням.</p>
+            </div>
+            <div class="example">
+                <p>Відвідайте наш <a href="#">основний сайт</a> для отримання додаткової інформації.</p>
+            </div>
+        </div>
+
+        <!-- Підказка -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">8</div>
+                <h2>Підказка (Tooltip)</h2>
+            </div>
+            <div class="description">
+                <p>Підказка - це невелике спливаюче вікно, яке з'являється при наведенні курсора на елемент. Воно містить додаткову інформацію, пояснення або підказку щодо використання елемента.</p>
+            </div>
+            <div class="example">
+                <div class="tooltip-container">
+                    Наведіть курсор на мене
+                    <div class="tooltip">Red bull gives you wiiings!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Список, що випадає -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">9</div>
+                <h2>Список, що випадає (Dropdown list)</h2>
+            </div>
+            <div class="description">
+                <p>Список, що випадає, дозволяє користувачеви вибрати один варіант зі списку опцій. Він економить місце на екрані, оскільки опції відображаються лише при активації елемента.</p>
+            </div>
+            <div class="example">
+                <label for="grandprix">Оберіть Гран-прі:</label>
+                <select id="grandprix" name="grandprix">
+                    <option value="">--Оберіть Гран-прі--</option>
+                    <option value="monza">Монца</option>
+                    <option value="baku">Баку</option>
+                    <option value="imola">Імола</option>
+                    <option value="suzuka">Сузука</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Сітка даних -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-number">10</div>
+                <h2>Сітка даних (Data grid)</h2>
+            </div>
+            <div class="description">
+                <p>Сітка даних відображає інформацію у вигляді таблиці з рядками і стовпцями. Вона часто включає функції сортування, фільтрації та пагінації для ефективного перегляду великих обсягів даних.</p>
+            </div>
+            <div class="example">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ім'я</th>
+                            <th>Прізвище</th>
+                            <th>Команда</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Макс</td>
+                            <td>Ферстаппен</td>
+                            <td>РедБулл</td>
+                        </tr>
+                        <tr>
+                            <td>Льюїс</td>
+                            <td>Гамільтон</td>
+                            <td>Мерседес</td>
+                        </tr>
+                        <tr>
+                            <td>Карлос</td>
+                            <td>Сайнс</td>
+                            <td>Феррарі</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Функціонал для активної кнопки та фотографії
+        document.getElementById('activeBtn').addEventListener('click', function() {
+            const photo = document.getElementById('f1Photo');
+            const caption = document.getElementById('photoCaption');
+            
+            photo.classList.add('active');
+            caption.textContent = 'Болід Формули 1 - фото успішно завантажено за допомогою активної кнопки!';
+            
+            // Плавне прокручування до фотографії
+            photo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        // Функціонал для вкладок
+        const tabs = document.querySelectorAll('.tab');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Видаляємо активний клас з усіх вкладок
+                tabs.forEach(t => t.classList.remove('active'));
+                
+                // Додаємо активний клас до поточної вкладки
+                this.classList.add('active');
+                
+                // Отримуємо ID контенту вкладки
+                const tabId = this.getAttribute('data-tab');
+                
+                // Приховуємо весь контент вкладок
+                const tabContents = document.querySelectorAll('.tab-content');
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Показуємо відповідний контент
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
